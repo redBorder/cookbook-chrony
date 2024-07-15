@@ -4,7 +4,7 @@
 # Please consider joining the pool (https://www.pool.ntp.org/join.html).
 
 <% @servers.each do |server| %>
-  pool <%= server %> iburst
+pool <%= server %> iburst
 <% end %>
   
 # Use NTP servers from DHCP.
