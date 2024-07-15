@@ -16,6 +16,12 @@ action :add do
       flush_cache[:before]
     end
 
+    execute 'create_user' do
+      command "/usr/sbin/useradd -r #{user}"
+      ignore_failure true
+      not_if "getent passwd #{user}"
+    end
+
     template '/etc/chrony.conf' do
       source 'chrony.conf.erb'
       cookbook 'rb-chrony'
