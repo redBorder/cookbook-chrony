@@ -24,7 +24,7 @@ action :add do
       )
       notifies :restart, 'service[chronyd]', :delayed
     end
-    
+
     Chef::Log.info('cookbook chrony has been processed.')
   rescue => e
     Chef::Log.error(e.message)
