@@ -1,4 +1,4 @@
-PACKAGE_NAME?=	cookbook-rb-cgroup
+PACKAGE_NAME?=	cookbook-rb-chrony
 
 VERSION?=	$(shell git describe --abbrev=6 --tags HEAD --always | sed 's/-/_/g')
 
