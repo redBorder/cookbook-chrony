@@ -3,12 +3,19 @@
 # Use public servers from the pool.ntp.org project.
 # Please consider joining the pool (https://www.pool.ntp.org/join.html).
 
-<% @servers.each do |server| %>
-pool <%= server %> iburst
+<% if node[:redborder][:ntp][:is_server] or node.name.start_with?"rbproxy" -%>
+  <% @servers.each do |server| %>
+  pool <%= server %> iburst
+  <% end %>
 <% end %>
-  
-# Use NTP servers from DHCP.
-sourcedir /run/chrony-dhcp
+
+<% if node[:redborder][:is_sensor] or (!node[:redborder][:cloudproxy].nil? and node[:redborder][:cloudproxy][:node]) %>
+  <% if node[:redborder][:manager_host].nil? %>
+pool kafka.<%= node["redborder"]["cdomain"].nil? ? "redborder.cluster" : node["redborder"]["cdomain"] %> iburst
+  <% else %>
+pool <%= node[:redborder][:manager_host].split("/").first %> iburst
+  <% end %>
+<% end %>
 
 # Record the rate at which the system clock gains/losses time.
 driftfile /var/lib/chrony/drift
@@ -28,7 +35,11 @@ rtcsync
 #minsources 2
 
 # Allow NTP client access from local network.
-#allow 192.168.0.0/16
+<% unless node[:redborder].nil? -%>
+  <% if node[:redborder][:is_manager] -%>
+  cmdallow 0.0.0.0/0
+  <% end -%>
+<% end -%>
 
 # Serve time even if not synchronized to a time source.
 #local stratum 10
