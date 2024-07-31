@@ -20,9 +20,9 @@ allow 0.0.0.0/0
 
 <% if node[:redborder][:is_sensor] or (!node[:redborder][:cloudproxy].nil? and node[:redborder][:cloudproxy][:node]) %>
   <% if node[:redborder][:manager_host].nil? %>
-  server kafka.<%= node["redborder"]["cdomain"].nil? ? "redborder.cluster" : node["redborder"]["cdomain"] %> iburst
+server kafka.<%= node["redborder"]["cdomain"].nil? ? "redborder.cluster" : node["redborder"]["cdomain"] %> iburst
   <% else %>
-  server <%= node[:redborder][:manager_host].split("/").first %> iburst
+server <%= node[:redborder][:manager_host].split("/").first %> iburst
   <% end %>
 <% end %>
 
