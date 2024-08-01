@@ -17,7 +17,7 @@ server <%= ntpserver %> iburst
 allow 0.0.0.0/0
 <% end -%>
 
-<% if !node[:redborder][:is_sensor] or (node[:redborder][:cloudproxy].nil? and !node[:redborder][:cloudproxy][:node]) or !node.name.start_with?("rbproxy") or !node.name.start_with?("rbipscp") -%> %>
+<% if !node[:redborder][:is_sensor] or (node[:redborder][:cloudproxy].nil? and !node[:redborder][:cloudproxy][:node]) or !node.name.start_with?("rbproxy") or !node.name.start_with?("rbipscp") -%>
   <% if node[:redborder][:manager_host].nil? %>
 server kafka.<%= node["redborder"]["cdomain"].nil? ? "redborder.cluster" : node["redborder"]["cdomain"] %> iburst
   <% else %>
