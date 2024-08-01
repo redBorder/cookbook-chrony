@@ -11,13 +11,13 @@ cmdallow 0.0.0.0/0
 <% end -%>
 
 <% if node[:redborder][:ntp][:is_server] or node.name.start_with?("rbproxy") or node.name.start_with?("rbipscp") -%>
-  <% @ntp_servers.each do |ntpserver| -%>
+  <% @servers.each do |ntpserver| -%>
 server <%= ntpserver %> iburst
 <% end -%>
 allow 0.0.0.0/0
 <% end -%>
 
-<% if node[:redborder][:is_sensor] or (!node[:redborder][:cloudproxy].nil? and node[:redborder][:cloudproxy][:node]) %>
+<% if !node[:redborder][:is_sensor] or (node[:redborder][:cloudproxy].nil? and !node[:redborder][:cloudproxy][:node]) or !node.name.start_with?("rbproxy") or !node.name.start_with?("rbipscp") -%> %>
   <% if node[:redborder][:manager_host].nil? %>
 server kafka.<%= node["redborder"]["cdomain"].nil? ? "redborder.cluster" : node["redborder"]["cdomain"] %> iburst
   <% else %>
