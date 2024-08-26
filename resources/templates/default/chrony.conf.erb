@@ -8,7 +8,7 @@ cmdallow 0.0.0.0/0
   <% end -%>
 <% end -%>
 
-<% if node[:redborder][:ntp][:is_server] or Chrony::Helpers.contains_role("proxy", node) or Chrony::Helpers.contains_role("ipscp", node) -%>
+<% if (node[:redborder] && node[:redborder][:ntp] && node[:redborder][:ntp][:is_server]) or Chrony::Helpers.contains_role("proxy", node) or Chrony::Helpers.contains_role("ipscp", node) -%>
   <% @servers.each do |ntpserver| -%>
 server <%= ntpserver %> iburst
   <% end -%>
