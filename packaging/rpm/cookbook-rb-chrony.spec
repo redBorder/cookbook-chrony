@@ -23,6 +23,9 @@ chmod -R 0755 %{buildroot}/var/chef/cookbooks/rb-chrony
 install -D -m 0644 README.md %{buildroot}/var/chef/cookbooks/rb-chrony/README.md
 
 %pre
+if [ -d /var/chef/cookbooks/rb-chrony ]; then
+    rm -rf /var/chef/cookbooks/rb-chrony
+fi
 
 %post
 case "$1" in
@@ -36,6 +39,12 @@ case "$1" in
   ;;
 esac
 
+%postun
+# Deletes directory when uninstall the package
+if [ "$1" = 0 ] && [ -d /var/chef/cookbooks/rb-chrony ]; then
+  rm -rf /var/chef/cookbooks/rb-chrony
+fi
+
 %files
 %defattr(0755,root,root)
 /var/chef/cookbooks/rb-chrony
@@ -46,5 +55,8 @@ esac
 %doc
 
 %changelog
+* Thu Oct 10 2024 Miguel Negrón <manegron@redborder.com>
+- Add pre and postun
+
 * Fri Jul 29 2024 Miguel Álvarez <malvarez@redborder.com>
 - first spec version
