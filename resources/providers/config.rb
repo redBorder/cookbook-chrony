@@ -13,7 +13,6 @@ action :add do
 
     dnf_package 'chrony' do
       action :upgrade
-      flush_cache[:before]
     end
 
     execute 'create_user' do
