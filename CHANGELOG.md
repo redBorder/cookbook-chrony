@@ -1,6 +1,11 @@
 cookbook-chrony CHANGELOG
 ===============
 
+## 0.0.3
+
+  - nilsver
+    - [51eec02] remove flush cache
+
 ## 0.0.2
 
   - Miguel Negrón
