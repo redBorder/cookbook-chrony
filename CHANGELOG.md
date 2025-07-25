@@ -1,6 +1,11 @@
 cookbook-chrony CHANGELOG
 ===============
 
+## 0.0.4
+
+  - jnavarrorb
+    - [d5de97a] Remove executable permissions on non-executable files
+
 ## 0.0.3
 
   - nilsver
