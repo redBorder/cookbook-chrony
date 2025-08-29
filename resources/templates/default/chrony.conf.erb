@@ -8,11 +8,15 @@ cmdallow 0.0.0.0/0
   <% end -%>
 <% end -%>
 
-<% if (node[:redborder] && node[:redborder][:ntp] && node[:redborder][:ntp][:is_server]) or Chrony::Helpers.contains_role("proxy", node) or Chrony::Helpers.contains_role("ipscp", node) -%>
-  <% @servers.each do |ntpserver| -%>
+<% ntp_servers = (node['redborder'] && node['redborder']['ntp'] && node['redborder']['ntp']['servers']) || @servers -%>
+
+<% if ntp_servers && !ntp_servers.empty? -%>
+  <% ntp_servers.each do |ntpserver| -%>
 server <%= ntpserver %> iburst
   <% end -%>
+  <% if (node[:redborder] && node[:redborder][:ntp] && node[:redborder][:ntp][:is_server]) or Chrony::Helpers.contains_role("proxy", node) or Chrony::Helpers.contains_role("ipscp", node) -%>
 allow 0.0.0.0/0
+  <% end -%>
 <% end -%>
 
 <% if !node[:redborder][:is_sensor] and (!Chrony::Helpers.contains_role("proxy", node) and !Chrony::Helpers.contains_role("ipscp", node)) -%>
