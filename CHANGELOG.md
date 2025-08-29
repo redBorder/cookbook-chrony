@@ -1,6 +1,11 @@
 cookbook-chrony CHANGELOG
 ===============
 
+## 0.0.5
+
+  - jnavarrorb
+    - [202e343] Add ntp servers from sensor role
+
 ## 0.0.4
 
   - jnavarrorb
