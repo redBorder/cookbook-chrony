@@ -1,6 +1,11 @@
 cookbook-chrony CHANGELOG
 ===============
 
+## 0.0.6
+
+  - manegron
+    - [97a6d9c] Upload cookbook only if opscode-erchef is active
+
 ## 0.0.5
 
   - jnavarrorb
